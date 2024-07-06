@@ -1,11 +1,20 @@
-import java.util.Scanner;
+public class Hello extends Thread {
+   public static int amount = 0;
 
-public class Hello {
    public static void main(String[] args) {
-      Scanner input = new Scanner(System.in);
-      System.out.print("Enter your name: ");
+      Hello thread = new Hello();
+      thread.start();
+      // Wait for the thread to finish
+      while (thread.isAlive()) {
+         System.out.println("Waiting...");
+      }
+      // Update amount and print its value
+      System.out.println("Main: " + amount);
+      amount++;
+      System.out.println("Main: " + amount);
+   }
 
-      String name = input.nextLine();
-      System.out.println("Hello, " + name + "!");
+   public void run() {
+      amount++;
    }
 }
