@@ -768,3 +768,179 @@ public class Hello extends Thread {
  */
 
 ```
+
+### Lambda 表达式
+
+```java
+import java.util.ArrayList;
+
+public class Hello extends Thread {
+   public static void main(String[] args) {
+      ArrayList<Integer> numbers = new ArrayList<Integer>();
+      numbers.add(5);
+      numbers.add(9);
+      numbers.add(8);
+      numbers.add(1);
+
+      /* Lambda expression */
+      numbers.forEach((n) -> {
+         System.out.println(n);
+      });
+   }
+}
+```
+
+## 文件
+
+### 方法概述
+
+导入`java.io.File`类。
+
+| Method            | Type     | Description      |
+| ----------------- | -------- | ---------------- |
+| canRead()         | boolean  | 判断是否可读     |
+| canWrite()        | boolean  | 判断是否可写     |
+| createNewFile()   | boolean  | 创建文件         |
+| delete()          | boolean  | 删除文件         |
+| exists()          | boolean  | 判断文件是否存在 |
+| getName()         | String   | 获取文件名       |
+| getAbsolutePath() | String   | 获取绝对路径     |
+| length()          | long     | 获取文件长度     |
+| list()            | String[] | 获取文件列表     |
+| mkdir()           | boolean  | 创建目录         |
+
+### 创建和写入文件
+
+#### 创建文件
+
+```java
+import java.io.File;
+import java.io.IOException;
+
+public class Hello {
+   public static void main(String[] args) {
+      try {
+         File f = new File("tmp.txt");
+         if (f.createNewFile()) {
+            System.out.println("File created successfully!");
+         } else {
+            System.out.println("File already exists.");
+         }
+      } catch (IOException e) {
+         System.out.println("An error occurred.");
+         e.printStackTrace();
+      }
+   }
+}
+```
+
+#### 写入文件
+
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Hello {
+   public static void main(String[] args) {
+      try {
+         FileWriter fw = new FileWriter("tmp.txt");
+         // 覆盖写
+         fw.write("Hello World!\n");
+         // 追加写
+         fw.append("Java is awesome!\n");
+         fw.close();
+         System.out.println("File is wroted successfully!");
+      } catch (IOException e) {
+         System.out.println("Error occurred while creating file!");
+         e.printStackTrace();
+      }
+   }
+}
+```
+
+### 读取文件
+
+```java
+// Import the File class
+import java.io.File;
+// Import this class to handle errors
+import java.io.FileNotFoundException;
+// Import the Scanner class to read text files
+import java.util.Scanner;
+
+public class Hello {
+   public static void main(String[] args) {
+      try {
+         File myObj = new File("tmp.txt");
+         Scanner myReader = new Scanner(myObj);
+
+         // Read each line of the file and print it
+         while (myReader.hasNextLine()) {
+            String data = myReader.nextLine();
+            System.out.println(data);
+         }
+         myReader.close();
+      } catch (FileNotFoundException e) {
+         System.out.println("An error occurred.");
+         e.printStackTrace();
+      }
+   }
+}
+```
+
+### 获取文件信息
+
+```java
+import java.io.File; // Import the File class
+
+public class Hello {
+   public static void main(String[] args) {
+      File myObj = new File("tmp.txt");
+      if (myObj.exists()) {
+         System.out.println("File name: " + myObj.getName());
+         System.out.println("Absolute path: " + myObj.getAbsolutePath());
+         System.out.println("Writeable: " + myObj.canWrite());
+         System.out.println("Readable " + myObj.canRead());
+         System.out.println("File size in bytes " + myObj.length());
+      } else {
+         System.out.println("The file does not exist.");
+      }
+   }
+}
+```
+
+### 删除文件
+
+```java
+import java.io.File; // Import the File class
+
+public class Hello {
+   public static void main(String[] args) {
+      File f = new File("tmp.txt");
+      if (f.delete()) {
+         System.out.println("File deleted successfully");
+      } else {
+         System.out.println("Failed to delete the file");
+      }
+   }
+}
+```
+
+### 删除文件夹
+
+文件夹需要为空。
+
+```java
+import java.io.File; // Import the File class
+
+public class Hello {
+   public static void main(String[] args) {
+      File f = new File("tmp");
+      if (f.delete()) {
+         System.out.println("File deleted successfully");
+      } else {
+         System.out.println("Failed to delete the file");
+      }
+   }
+}
+```
